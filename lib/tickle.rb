@@ -29,10 +29,12 @@ module Tickle
     # check to see if a datetime was passed
     # if so, give it back
     # TODO Consider converting to a Tickled
-    return tickled if asked.respond_to? :to_time
-
-    tickled = Tickled.new asked, options
-    _parse tickled
+    case asked
+    when Date, DateTime, Time then asked
+    else
+      tickled = Tickled.new asked, options
+      _parse tickled
+    end
   end
 
 
